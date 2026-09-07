@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="ar" dir="rtl"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;رحلة القراءة - Reading Journey&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="stylesheet" href="style.css"&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;السلم والثعبان: رحلة القراءة 📚&lt;/h1&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="game-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="board"&gt;&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="controls"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="setup-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="control-box"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label for="lesson-index"&gt;Select Word:&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;select id="lesson-index" onchange="jumpToLesson()"&gt;&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="control-box"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label for="start-pos"&gt;Go to:&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="start-pos" min="1" max="99" value="1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="small-btn" onclick="setStartPos()"&gt;Move&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="dice-display"&gt;🎲&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="ask-btn" onclick="drawCard()"&gt;اسحب بطاقة 📝&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="dice-btn" onclick="rollDice()" disabled&gt;ارمي النرد&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p id="message"&gt;Choose a word or draw a card to start!&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p dir="rtl" class="p1"><span class="Apple-converted-space">    </span>&lt;!-- مربع الحوار المتعدد الأغراض --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="quiz-modal" class="hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="modal-content"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p dir="rtl" class="p1"><span class="Apple-converted-space">            </span>&lt;!-- 1. قسم عرض الكلمة لأول مرة --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="lesson-section" class="hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 id="lesson-title"&gt;&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="lesson-box"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p id="lesson-text-ar" class="lesson-ar"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p id="lesson-text-en" class="lesson-en" dir="ltr"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button id="understand-btn" onclick="showQuestion()" class="action-btn"&gt;Ready for sounds! 🚀&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button id="close-fail-btn" onclick="closeModalAndWait()" class="fail-btn hidden"&gt;Back to Board&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p dir="rtl" class="p1"><span class="Apple-converted-space">            </span>&lt;!-- 2. قسم أسئلة الحروف --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="question-section" class="hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p id="chapter-branch-label" class="badge"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 id="question-counter"&gt;&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="instruction" dir="ltr"&gt;How do you pronounce this sound?&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="target-letter" class="huge-letter"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="options" dir="ltr"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p dir="rtl" class="p1"><span class="Apple-converted-space">            </span>&lt;!-- 3. التحدي النهائي (تقييم قراءة الكلمة كاملة) --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="final-check-section" class="hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="badge" style="font-size: 16px;"&gt;Final Challenge! التحدي النهائي&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="instruction" dir="ltr"&gt;Read the whole word:&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="final-word-ar" class="huge-letter" style="color: #8e44ad; font-size: 55px;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="instruction" dir="ltr"&gt;Did she read it correctly?&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="action-btn" onclick="handleFinalWord(true)" style="font-size: 16px;"&gt;✅ Correct (صح)&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="fail-btn" onclick="handleFinalWord(false)" style="font-size: 16px;"&gt;❌ Incorrect (خطأ)&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="script.js"&gt;&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
