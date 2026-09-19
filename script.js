@@ -83,12 +83,27 @@ let wordStartPosition = 1;
 let waitingForFinalCheck = false; 
 let isBonusRoll = false;         
 
+// 🎯 التحديث الجديد للسلالم والثعابين 🎯
 const snakesAndLadders = {
-    4: { to: 14, msg: "🪜 Ladder!" },
-    9: { to: 31, msg: "🪜 Great jump!" },
-    17: { to: 7, msg: "🐍 Snake!" },
-    20: { to: 38, msg: "🪜 Ladder!" },
-    45: { to: 22, msg: "🐍 Snake!" }
+    // السلالم (Ladders)
+    4: { to: 14, msg: "🪜 سلم صغير!" },
+    9: { to: 31, msg: "🪜 قفزة ممتازة!" },
+    20: { to: 38, msg: "🪜 سلم رائع!" },
+    28: { to: 84, msg: "🪜 سلم سحري! قفزة هائلة!" },
+    40: { to: 59, msg: "🪜 سلم ممتاز!" },
+    51: { to: 67, msg: "🪜 إلى الأعلى!" },
+    71: { to: 91, msg: "🪜 اقتربنا من النهاية!" },
+    80: { to: 98, msg: "🪜 خطوة واحدة على الفوز!" },
+
+    // الثعابين (Snakes)
+    17: { to: 7, msg: "🐍 ثعبان يعيدك للخلف!" },
+    54: { to: 34, msg: "🐍 ثعبان منتصف الطريق!" },
+    62: { to: 19, msg: "🐍 أوه لا! ثعبان ضخم!" },
+    64: { to: 60, msg: "🐍 انزلاق بسيط!" },
+    87: { to: 24, msg: "🐍 انزلاق مرعب!" },
+    93: { to: 73, msg: "🐍 ثعبان خطير!" },
+    95: { to: 75, msg: "🐍 احترس من الثعبان!" },
+    99: { to: 78, msg: "🐍 ياه! ثعبان ما قبل النهاية!" }
 };
 
 window.onload = () => { createBoard(); populateIndex(); };
