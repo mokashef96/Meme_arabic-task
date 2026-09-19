@@ -94,6 +94,17 @@ const snakesAndLadders = {
 window.onload = () => { createBoard(); populateIndex(); };
 
 // 4. وظائف محرك اللعبة
+
+// دالة لخلط المصفوفات عشوائياً (Shuffle)
+function shuffleArray(array) {
+    let arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
 function createBoard() {
     const board = document.getElementById('board');
     board.innerHTML = '';
@@ -153,6 +164,9 @@ function drawCard() {
     
     if (qIdx === 0 && needsLesson) {
         wordStartPosition = currentPosition;
+        // خلط ترتيب الأسئلة نفسها عند بداية الفرع
+        const branchData = syllabus[cIdx].branches[bIdx];
+        branchData.questions = shuffleArray(branchData.questions);
     }
 
     if (needsLesson) showLessonUI(false);
@@ -192,7 +206,10 @@ function showQuestion() {
     const optionsDiv = document.getElementById('options');
     optionsDiv.innerHTML = '';
     
-    questionData.options.forEach(opt => {
+    // خلط الاختيارات عشوائياً حتى لا يتم حفظ مكان الإجابة
+    const shuffledOptions = shuffleArray(questionData.options);
+    
+    shuffledOptions.forEach(opt => {
         const btn = document.createElement('button');
         btn.innerHTML = `<div class="opt-en">${opt}</div>`;
         btn.onclick = () => checkAnswer(opt, questionData.answer);
